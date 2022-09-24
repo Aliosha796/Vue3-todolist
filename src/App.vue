@@ -4,18 +4,8 @@ import TodoList from "./components/TodoList.vue";
 import TodoFooter from "./components/TodoFooter.vue";
 import { reactive, ref, watch } from "vue";
 
-/* let todos = ref([
-  { id: "001", title: "机器学习", done: false, isEdit: false },
-  { id: "002", title: "看一篇英语文章", done: true, isEdit: false },
-  { id: "003", title: "学20分钟口琴", done: false, isEdit: false },
-]); */
 let saveData = JSON.parse(localStorage.getItem("todos")) || [];
 let todos = reactive(saveData);
-
-/* let state = reactive({
-  todos,
-}); */
-/* const todos = reactive(obj); */
 
 const AddTodoItem = (Item) => {
   todos.push(Item);

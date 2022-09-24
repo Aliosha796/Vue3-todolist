@@ -1,6 +1,7 @@
 <template>
   <ul id="doingThings">
     <li v-for="(TodosObj, index) in todos" :key="TodosObj.id">
+      <!-- <input type="checkbox" class="checkDone" name="" id="" /> -->
       <section class="listTitle" @click="Checkdone(TodosObj)">
         <p v-show="!TodosObj.isEdit" :class="{ checked: TodosObj.done }">
           {{ TodosObj.title }}
@@ -12,8 +13,7 @@
           v-model="NewEdit"
           @keyup.enter="handleBlur(TodosObj)"
           @blur="handleBlur(TodosObj)"
-          :ref="inputTitle"
-          id="input"
+          ref="inputTitle"
         />
       </section>
 
@@ -21,7 +21,7 @@
         <span v-show="!TodosObj.isEdit" class="edit" @click="EditItem(TodosObj)"
           >&#xe602;</span
         >
-        <span @click="DelItem(index)" :title="hint.delTitle" class="del"
+        <span @click="DelItem(TodosObj.id)" :title="hint.delTitle" class="del"
           >&#xe600;</span
         >
       </div>
@@ -29,7 +29,9 @@
   </ul>
 </template>
 <script setup>
-import { ref, nextTick, reactive, onMounted } from "vue";
+import { ref, nextTick, onBeforeMount } from "vue";
+
+import { getListAPI, addItemAPI, delItemAPI } from "../api/request.js";
 const props = defineProps(["todos"]);
 const emit = defineEmits(["CheckTodo", "DelTodo"]);
 const hint = {
@@ -38,27 +40,28 @@ const hint = {
 };
 let NewEdit = ref("");
 
+onBeforeMount(async () => {
+  await getListAPI().then((data) => {
+    console.log(data.data.data);
+  });
+});
+
 const Checkdone = (todo) => {
   emit("CheckTodo", todo);
+  console.log(todo.done);
 };
 
-const DelItem = (index) => {
-  /* if (confirm("是否删除？")) {
+const DelItem = (id) => {
+  if (confirm("是否删除？")) {
     emit("DelTodo", id);
-  } */
-  emit("DelTodo", index);
+  }
 };
 
 const inputTitle = ref(null);
 
-
 const EditItem = (Todos) => {
-  /*   console.log(Todos); */
   NewEdit.value = Todos.title;
   Todos.isEdit = true;
-  nextTick(() => {
-    
-  });
 };
 const handleBlur = (Todos) => {
   Todos.isEdit = false;
@@ -104,7 +107,11 @@ const handleBlur = (Todos) => {
 .checked {
   text-decoration: line-through 5px;
 }
-
+.checkDone {
+  min-height: 60px;
+  width: 50px;
+  margin-left: 20px;
+}
 .editInput {
   border-top: 0;
   border-left: 0;
