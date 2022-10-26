@@ -31,7 +31,7 @@
 <script setup>
 import { ref, nextTick, onBeforeMount } from "vue";
 
-import { getListAPI, addItemAPI, delItemAPI } from "../api/request.js";
+// import { getListAPI, addItemAPI, delItemAPI } from "../api/request.js";
 const props = defineProps(["todos"]);
 const emit = defineEmits(["CheckTodo", "DelTodo"]);
 const hint = {
@@ -40,11 +40,11 @@ const hint = {
 };
 let NewEdit = ref("");
 
-onBeforeMount(async () => {
-  await getListAPI().then((data) => {
-    console.log(data.data.data);
-  });
-});
+// onBeforeMount(async () => {
+//   await getListAPI().then((data) => {
+//     console.log(data.data.data);
+//   });
+// });
 
 const Checkdone = (todo) => {
   emit("CheckTodo", todo);

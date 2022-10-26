@@ -34,7 +34,7 @@ const addNewItem = (InputList) => {
 <style>
 #ListInput {
   width: 100%;
-  height: 40px;
+
   font-size: 1.5em;
   border: 0;
   border-bottom: 3px #fff solid;
