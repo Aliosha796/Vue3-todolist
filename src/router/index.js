@@ -21,14 +21,17 @@ const router = createRouter({
   ],
 });
 router.beforeEach(async (to, from, next) => {
-  const isLogin = localStorage.getItem("token");
-  if (isLogin || to.name === "login") {
-    next();
-  } else {
-    next({
-      name: "login",
-    });
-  }
+  const isLogin = window.sessionStorage.getItem("token");
+  // if (isLogin || to.name === "login") {
+  //   next();
+  // } else {
+  //   next({
+  //     name: "login",
+  //   });
+  // }
+  if (to.path === "/login") return next();
+  if (!isLogin) return next("/login");
+  next();
 });
 
 export default router;

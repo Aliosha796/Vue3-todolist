@@ -81,7 +81,7 @@ const login = () => {
       })
       .then((res) => {
         console.log(res.data);
-        localStorage.setItem("token", res.data.token);
+        window.sessionStorage.setItem("token", res.data.token);
         router.push("/");
       })
       .catch((err) => {
