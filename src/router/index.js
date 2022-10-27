@@ -4,8 +4,8 @@ import {
   createWebHashHistory,
 } from "vue-router";
 const router = createRouter({
-  // history: createWebHistory(import.meta.env.BASE_URL),
-  history: createWebHashHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
+  // history: createWebHashHistory(),
   routes: [
     {
       path: "/login",
@@ -29,9 +29,13 @@ router.beforeEach(async (to, from, next) => {
   //     name: "login",
   //   });
   // }
-  if (to.path === "/login") return next();
-  if (!isLogin) return next("/login");
-  next();
+  if (to.path === "/login") {
+    return next();
+  } else if (!isLogin) {
+    next("/login");
+  } else {
+    next();
+  }
 });
 
 export default router;
