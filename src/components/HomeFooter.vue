@@ -1,6 +1,8 @@
 <template>
-  <p>已完成 {{ doneTotal }} / 全部 {{ todos.length }}</p>
-  <span @click="CleanAll" :title="title">&#xe628;</span>
+  <div class="footer">
+    <p>已完成 {{ doneTotal }} - 全部 {{ todos.length }}</p>
+    <span @click="CleanAll" :title="title">&#xe628;</span>
+  </div>
 </template>
 <script setup>
 import { computed } from "vue";
@@ -26,13 +28,20 @@ const doneTotal = computed(() => {
   return i;
 });
 </script>
-<style scoped>
-span,
-p {
-  color: #fff;
-  font-size: 1.5rem;
-  font-family: "iconfont";
-  cursor: pointer;
+<style scoped lang="scss">
+.footer {
+  margin-top: 20px;
+  height: 12vh;
+  span,
+  p {
+    color: #fff;
+    font-size: 1.5rem;
+    font-family: "iconfont";
+    cursor: pointer;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 span:hover {

@@ -71,7 +71,7 @@ h1 {
   padding-top: 40px;
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
 }
 @media screen and (max-width: 400px) {
   body {
@@ -81,6 +81,7 @@ h1 {
     width: 100%;
     margin: 0;
     border-radius: 0px;
+    
   }
   .containerMain {
     width: 100%;

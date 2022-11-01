@@ -18,7 +18,10 @@
       </section>
 
       <div class="operation">
-        <span v-show="!TodosObj.isEdit" class="edit" @click="EditItem(TodosObj)"
+        <span
+          v-show="!TodosObj.isEdit"
+          class="edit"
+          @click="EditItem(TodosObj, index)"
           >&#xe602;</span
         >
         <span @click="DelItem(TodosObj.id)" :title="hint.delTitle" class="del"
@@ -29,7 +32,7 @@
   </ul>
 </template>
 <script setup>
-import { ref, nextTick, onBeforeMount } from "vue";
+import { ref, nextTick, onBeforeMount, watch } from "vue";
 
 // import { getListAPI, addItemAPI, delItemAPI } from "../api/request.js";
 const props = defineProps(["todos"]);
@@ -57,12 +60,18 @@ const DelItem = (id) => {
   }
 };
 
+// 输入框DOM节点
 const inputTitle = ref(null);
-
-const EditItem = (Todos) => {
+// 编辑事项的方法，传入传入事项参数和索引位置
+const EditItem = async (Todos, index) => {
   NewEdit.value = Todos.title;
   Todos.isEdit = true;
+  await nextTick(() => {
+    // 方法执行后自动聚焦对应位置的输入框
+    inputTitle.value[index].focus();
+  });
 };
+// 失去焦点时执行的方法
 const handleBlur = (Todos) => {
   Todos.isEdit = false;
   //console.log(NewEdit.value);

@@ -5,7 +5,7 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   plugins: [vue()],
   // 对应github项目名称
-  base: "./",
+  base: "/",
   build: {
     outDir: "docs",
   },

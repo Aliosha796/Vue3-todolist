@@ -72,7 +72,7 @@ const userInfo = reactive({
 });
 // 登录操作
 const login = () => {
-  console.log(userInfo);
+  // console.log(userInfo);
   if ((userInfo.name !== "") & (userInfo.password !== "")) {
     axios
       .post(loginUrl, {
@@ -80,12 +80,12 @@ const login = () => {
         password: userInfo.password,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         window.sessionStorage.setItem("token", res.data.token);
         router.push("/");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert("用户名或密码错误");
       });
   } else {
